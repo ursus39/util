@@ -1,0 +1,46 @@
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Random;
+
+import com.google.common.primitives.UnsignedBytes;
+import com.google.common.primitives.UnsignedInteger;
+import com.google.common.primitives.UnsignedInts;
+/**
+ * 
+ * @ClassName: OrderNumberUitls 
+ * @Description: 订单号生成工具类 
+ * @author ursus39
+ */
+public class OrderNumberUitls
+{	
+	/**
+	 * 创建yyyyMMddHHssmm + 6位数字的长整形随机数
+	 * @return 创建成功的随机数
+	 */
+	public static long createDigitOrderNumber(){
+		return Long.parseLong(createOrderNumber());
+	}
+	
+	public static String createOrderNumber() {
+		//yyyy-MM-dd-HH-ss-mm-666666
+		//将当前时间串与随机数串拼接成订单号
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHssmm");
+		String strdate = dateFormat.format(new Date());
+		
+		strdate += create5digit();
+		
+		return strdate;
+	}
+	
+	public static String create5digit()
+	{
+		//获得5位随机数
+		Random random = new Random();
+		int l = random.nextInt(100000);
+		l%=100000;
+
+		return String.format("%05d", l);
+		
+	}
+}
